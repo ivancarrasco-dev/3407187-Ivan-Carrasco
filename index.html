@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sistema de Gestión de Cementerio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Crimson+Text:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="bg-texture"></div>
+
+  <!-- Toggle Tema -->
+  <button id="themeToggle" class="theme-toggle" aria-label="Cambiar tema">
+    <span class="theme-icon">☽</span>
+  </button>
+
+  <div class="container">
+
+    <!-- Tarjeta principal -->
+    <div class="card">
+
+      <!-- Encabezado -->
+      <header class="card-header">
+        <div class="header-ornament top">✦ ✦ ✦</div>
+        <div class="header-crest">⚜</div>
+        <h1 id="userName">Cargando...</h1>
+        <p class="system-title" id="userTitle">Cargando...</p>
+        <p class="system-location" id="userLocation">📍 Cargando...</p>
+        <div class="header-ornament bottom">✦ ✦ ✦</div>
+      </header>
+
+      <!-- Descripción -->
+      <section class="card-section">
+        <h2><span class="section-icon">✒</span> Descripción del Sistema</h2>
+        <p id="userBio">Cargando...</p>
+      </section>
+
+      <!-- Contacto -->
+      <section class="card-section">
+        <h2><span class="section-icon">✉</span> Contacto Administrativo</h2>
+        <div class="contact-item">
+          <span class="contact-icon">📧</span>
+          <span id="userEmail">Cargando...</span>
+          <button id="copyEmailBtn" class="btn btn-small">Copiar</button>
+        </div>
+        <div class="contact-item">
+          <span class="contact-icon">📞</span>
+          <span id="userPhone">Cargando...</span>
+        </div>
+      </section>
+
+      <!-- Módulos -->
+      <section class="card-section">
+        <h2><span class="section-icon">⚙</span> Módulos y Servicios</h2>
+        <div id="skillsList" class="skills-list">Cargando...</div>
+        <button id="toggleSkills" class="btn btn-secondary">Mostrar Más</button>
+      </section>
+
+      <!-- Recursos -->
+      <section class="card-section">
+        <h2><span class="section-icon">🔗</span> Recursos Externos</h2>
+        <div id="socialLinks" class="social-links">Cargando...</div>
+      </section>
+
+      <!-- Estadísticas -->
+      <section class="card-section">
+        <h2><span class="section-icon">📊</span> Estadísticas del Sistema</h2>
+        <div id="stats" class="stats-grid">Cargando...</div>
+      </section>
+
+    </div>
+
+    <!-- Pie de página -->
+    <footer class="footer">
+      <div class="footer-divider">⸻ ✦ ⸻</div>
+      <p>JavaScript ES2023 — Semana 01</p>
+      <p class="small">Sistema de Gestión de Cementerio</p>
+    </footer>
+
+  </div>
+
+  <!-- Toast -->
+  <div id="toast" class="toast">
+    <span id="toastMessage"></span>
+  </div>
+
+  <script src="starter/script.js"></script>
+</body>
+</html>
