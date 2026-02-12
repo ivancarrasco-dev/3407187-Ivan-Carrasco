@@ -1,13 +1,22 @@
-# Ficha de Sistema de Gestión de Cementerio — CEM-001
+# Ficha de Sistema de Gestión de Cementerio
 
 ## 📋 Información
-- **Nombre**: Ivan Camilo Carrasco Cano
+- **Nombre**: Iván Camilo Carrasco Cano
 - **Fecha**: 11/02/2026
 - **Dominio Asignado**: Gestión de Cementerio
 - **Entidad Principal**: Plataforma Administrativa del Cementerio Central
 
+## 📁 Estructura del Proyecto
+Basado en la organización de archivos actual:
+- `pictures/`: Carpeta para capturas de pantalla y recursos visuales.
+- `starter/`: Contiene la lógica del sistema.
+    - `script.js`: Implementación de funciones ES2023.
+- `index.html`: Estructura principal del sitio.
+- `styles.css`: Definición de estilos y variables de tema.
+- `README.md`: Documentación del proyecto.
+
 ## 🎯 Descripción
-Esta aplicación web interactiva permite la administración integral de un camposanto. El sistema facilita la visualización y gestión de parcelas, registros de sepultura y mantenimiento preventivo. Incluye una interfaz solemne y profesional con soporte para temas dinámicos, permitiendo a los administradores alternar entre modos de visualización según su preferencia y necesidad de lectura.
+Esta aplicación web interactiva permite la administración integral de un camposanto. El sistema facilita la visualización y gestión de parcelas, registros de sepultura y mantenimiento preventivo. Incluye una interfaz solemne y profesional con soporte para temas dinámicos (claro/oscuro), permitiendo a los administradores alternar la visualización mediante `localStorage` para persistencia.
 
 ## 📚 Conceptos ES2023 Aplicados
 - [x] **Variables con let/const**: Uso de `const` para referencias al DOM y `let` para estados de visibilidad.
@@ -17,9 +26,8 @@ Esta aplicación web interactiva permite la administración integral de un campo
 - [x] **Nullish coalescing (??)**: Utilizado para la carga de preferencias del tema desde `localStorage`.
 
 ## 🚀 Cómo Ejecutar
-1. Clona o descarga la carpeta del proyecto.
-2. Asegúrate de que los archivos `index.html`, `styles.css` y `script.js` estén en el mismo directorio (o ajusta la ruta del script en el HTML).
-3. Abre el archivo `index.html` en cualquier navegador web moderno.
+1. Abre el archivo `index.html` en cualquier navegador web moderno.
+2. Verifica que la consola no muestre errores (F12) para confirmar la carga del script desde la carpeta `/starter`.
 
 ## 📸 Screenshots
 ### Tema Claro
@@ -29,8 +37,8 @@ Esta aplicación web interactiva permite la administración integral de un campo
 ![Tema Oscuro](pictures/dark-theme.png)
 
 ## 🎯 Autoevaluación
-- **Funcionalidad**: 100% (Todos los botones y el tema funcionan correctamente).
-- **Código ES2023**: 100% (Se eliminó el uso de `var` y se usó destructuring).
-- **Código Limpio**: 100% (Variables en inglés y comentarios en español).
-- **Adaptación al Dominio**: 100% (Estética y datos coherentes con un cementerio).
+- **Funcionalidad**: 100%
+- **Código ES2023**: 100%
+- **Código Limpio**: 100%
+- **Adaptación al Dominio**: 100%
 - **Total Estimado**: 100%
