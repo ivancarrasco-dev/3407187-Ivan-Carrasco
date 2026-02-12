@@ -1,7 +1,7 @@
 # Ficha de Sistema de Gestión de Cementerio — CEM-001
 
 ## 📋 Información
-- **Nombre**: [Tu Nombre Completo]
+- **Nombre**: Ivan Camilo Carrasco Cano
 - **Fecha**: 11/02/2026
 - **Dominio Asignado**: Gestión de Cementerio
 - **Entidad Principal**: Plataforma Administrativa del Cementerio Central
@@ -23,10 +23,10 @@ Esta aplicación web interactiva permite la administración integral de un campo
 
 ## 📸 Screenshots
 ### Tema Claro
-![Tema Claro](screenshots/light-theme.png)
+![Tema Claro](pictures/light-theme.png)
 
 ### Tema Oscuro
-![Tema Oscuro](screenshots/dark-theme.png)
+![Tema Oscuro](pictures/dark-theme.png)
 
 ## 🎯 Autoevaluación
 - **Funcionalidad**: 100% (Todos los botones y el tema funcionan correctamente).
