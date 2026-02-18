@@ -14,9 +14,9 @@ const cemeteryData = {
   identifier: 'CEM-001',
 
   contact: {
-    email: 'contacto@cementeriocentral.com',
-    phone: '+57 601 555 5555',
-    location: 'Bogotá, Colombia'
+    email: 'uaesp@uaesp.gov.co',
+    phone: '+57 601 358 04 00',
+    location: 'Cra 20 #3780, Los Mártires, Bogotá'
   },
 
   items: [
@@ -29,8 +29,8 @@ const cemeteryData = {
   ],
 
   links: [
-    { platform: 'Sitio Web',  url: 'https://cemetery.example.com',         icon: '🌐' },
-    { platform: 'Soporte',    url: 'https://cemetery.example.com/support',  icon: '🛠️' }
+    { platform: 'Sitio Web',  url: 'https://bogota.gov.co/servicios/puntos-de-atencion/cementerio-central',         icon: '🌐' },
+    { platform: 'Soporte',    url: 'https://bogota.gov.co/servicios/entidad/unidad-administrativa-especial-de-servicios-publicos-uaesp',  icon: '🛠️' }
   ],
 
   stats: {

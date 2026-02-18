@@ -4,9 +4,10 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Sistema de Gestión de Cementerios</title>
+  <link rel="icon" type="image/x-icon" href="pictures/estrella.ico" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Crimson+Text:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
@@ -14,7 +15,7 @@
 
   <!-- Toggle Tema -->
   <button id="themeToggle" class="theme-toggle" aria-label="Cambiar tema">
-    <span class="theme-icon">☽</span>
+    <span class="theme-icon">🌙</span>
   </button>
 
   <div class="container">
@@ -24,12 +25,16 @@
 
       <!-- Encabezado -->
       <header class="card-header">
-        <div class="header-ornament top">✦ ✦ ✦</div>
-        <div class="header-crest">⚜</div>
-        <h1 id="userName">Cargando...</h1>
-        <p class="system-title" id="userTitle">Cargando...</p>
-        <p class="system-location" id="userLocation">📍 Cargando...</p>
-        <div class="header-ornament bottom">✦ ✦ ✦</div>
+        <div class="header-inner">
+          <div class="logo-alcaldia">
+            <img src="pictures/logo.png" alt="Alcaldía de Bogotá" class="logo-img" />
+          </div>
+          <div class="header-center">
+            <h1 id="userName">Cargando...</h1>
+            <p class="system-title" id="userTitle">Cargando...</p>
+            <p class="system-location" id="userLocation">Cargando...</p>
+          </div>
+        </div>
       </header>
 
       <!-- Descripción -->
@@ -71,14 +76,14 @@
         <div id="stats" class="stats-grid">Cargando...</div>
       </section>
 
-    </div>
+      <!-- Footer dentro de la card -->
+      <footer class="footer">
+        <div class="footer-divider">— ✦ —</div>
+        <p>JavaScript ES2023 — Semana 01</p>
+        <p class="small">Sistema de Gestión de Cementerio · Bogotá D.C.</p>
+      </footer>
 
-    <!-- Pie de página -->
-    <footer class="footer">
-      <div class="footer-divider">⸻ ✦ ⸻</div>
-      <p>JavaScript ES2023 — Semana 01</p>
-      <p class="small">Sistema de Gestión de Cementerio.</p>
-    </footer>
+    </div>
 
   </div>
 
