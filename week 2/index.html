@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Chronos - Gestión de Necrópolis</title>
+  <title>Cementerio Central - sistema de registros</title>
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Crimson+Text:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
 </head>
@@ -14,9 +14,15 @@
   <div class="container">
     <main class="card">
       <header class="card-header">
-        <div class="header-crest">⚖️</div>
-        <h1>MANTENIMIENTO DE REGISTROS</h1>
-        <p class="system-title">Archivo Central de la Necrópolis</p>
+        <div class="header-logos">
+          <div class="logo-alcaldia">
+            <img src="pictures/logo.png" alt="Alcaldía Mayor de Bogotá D.C." class="logo-img">
+          </div>
+          <div class="header-center">
+            <h1>MANTENIMIENTO DE REGISTROS</h1>
+            <p class="system-title">Archivo Cementerio Central Bogotá D.C.</p>
+          </div>
+        </div>
       </header>
 
       <div class="main-layout">
@@ -49,12 +55,12 @@
                 <option value="mausoleum">Mausoleo</option>
                 <option value="crypt">Cripta</option>
                 <option value="garden">Jardín</option>
-                <option value="ossuary">Osario</option>
+                <option value="ossuary">Cenisario</option>
               </select>
               <select id="item-priority">
-                <option value="high">Urgente</option>
-                <option value="medium" selected>Regular</option>
-                <option value="low">Baja</option>
+                <option value="high">Perpetuidad</option>
+                <option value="medium" selected>Temporal</option>
+                <option value="low">Muerte Violenta (Fiscalia)</option>
               </select>
             </div>
             <div class="form-actions">

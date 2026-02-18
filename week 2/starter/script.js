@@ -9,13 +9,13 @@
       mausoleum: buildCategory('Mausoleo', '🛕'),
       crypt:     buildCategory('Cripta',   '🗝️'),
       garden:    buildCategory('Jardín',   '🌿'),
-      ossuary:   buildCategory('Osario',   '💀'),
+      ossuary:   buildCategory('Cenisario',   '💀'),
     };
 
     const PRIORITY_LABELS = {
-      high:   '🔴 Urgente',
-      medium: '🟡 Regular',
-      low:    '🟢 Baja',
+      high:   'Perpetuidad',
+      medium: 'Temporal',
+      low:    'Muerte Violenta',
     };
 
     // ─── Fábrica de items (default parameters) ────────────────────────────────
