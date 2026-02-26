@@ -3,13 +3,13 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Sistema Cementerio Central - Gestión de Registros</title>
+  <title>Sistema Cementerio Central - Gestión CRUD Oficial</title>
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
-  <button class="theme-switch" id="theme-toggle" title="Cambiar Tema">🌙</button>
+  <button class="theme-switch" id="theme-toggle" title="Cambiar Apariencia">🌙</button>
 
   <div class="app-container">
     <header class="main-header">
@@ -44,7 +44,7 @@
       
       <section id="inventory" class="tab-section active">
         <div class="toolbar">
-          <input type="text" id="search-input" placeholder="🔍 Buscar por nombre o ubicación...">
+          <input type="text" id="search-input" placeholder="🔍 Buscar registros por nombre...">
           <button class="btn btn-main" id="open-modal-btn">+ NUEVA INSCRIPCIÓN</button>
         </div>
         
@@ -55,13 +55,13 @@
       <section id="staff" class="tab-section">
         <div class="pane-header">
           <h2>Personal Administrativo</h2>
-          <p>Funcionarios encargados de la custodia de folios.</p>
+          <p>Gestión de funcionarios y custodios del archivo.</p>
         </div>
-        <div id="staff-container" class="records-list">
+        <div class="records-list">
           <div class="item-card">
-            <div>
-              <strong>Coordinación de Archivo</strong>
-              <p>UAESP - Gestión Cementerios Distritales</p>
+            <div class="info">
+              <strong>Administración UAESP</strong>
+              <p>Unidad de Servicios Funerarios Distritales</p>
             </div>
           </div>
         </div>
@@ -70,7 +70,7 @@
       <section id="history" class="tab-section">
         <div class="pane-header">
           <h2>Libro de Movimientos Recientes</h2>
-          <p>Auditoría de registros en tiempo real.</p>
+          <p>Auditoría de ediciones, altas y bajas del sistema.</p>
         </div>
         <div id="log-container" class="log-entries">
           </div>
@@ -79,14 +79,14 @@
     </main>
 
     <footer style="padding: 1rem; text-align: center; font-size: 0.7rem; color: var(--text-muted); border-top: 1px solid var(--border-color);">
-      ALCALDÍA MAYOR DE BOGOTÁ - UNIDAD ADMINISTRATIVA ESPECIAL DE SERVICIOS PÚBLICOS
+      ALCALDÍA MAYOR DE BOGOTÁ - SISTEMA DE GESTIÓN DE CEMENTERIOS DISTRITALES
     </footer>
   </div>
 
   <div id="modal-overlay" class="modal-overlay">
     <div class="modal-card">
       <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
-        <h3 style="font-family: 'Cinzel', serif;">Nueva Inscripción</h3>
+        <h3 id="modal-title" style="font-family: 'Cinzel', serif;">Nueva Inscripción</h3>
         <button id="close-modal-btn" style="background: none; border: none; font-size: 1.5rem; cursor: pointer; color: var(--text-main);">&times;</button>
       </div>
       
@@ -100,21 +100,21 @@
           </select>
         </div>
         <div class="field">
-          <label>Nombre del Titular / Difunto</label>
-          <input type="text" id="field-name" placeholder="Ej: Familia Jiménez" required>
+          <label>Nombre del Titular / Identificador</label>
+          <input type="text" id="field-name" placeholder="Ej: Panteón Familia Rojas" required>
         </div>
         <div class="field">
-          <label>Ubicación</label>
-          <input type="text" id="field-loc" placeholder="Ej: Sector Norte, Cuadro 4" required>
+          <label>Ubicación Específica</label>
+          <input type="text" id="field-loc" placeholder="Ej: Sector Oriente, Fila 4" required>
         </div>
         <div class="field">
-          <label id="extra-label">Dato Adicional (Capacidad/Nivel)</label>
-          <input type="text" id="field-extra" placeholder="Ej: 4 personas / Nivel 2" required>
+          <label>Dato Adicional (Capacidad/Nivel/Seguridad)</label>
+          <input type="text" id="field-extra" placeholder="Ej: 6 personas / Nivel 3" required>
         </div>
         
         <div style="display: flex; gap: 10px; margin-top: 2rem;">
           <button type="button" class="btn btn-secondary" id="cancel-btn" style="flex: 1;">Cancelar</button>
-          <button type="submit" class="btn btn-main" style="flex: 1;">Guardar</button>
+          <button type="submit" class="btn btn-main" style="flex: 1;">Guardar Registro</button>
         </div>
       </form>
     </div>

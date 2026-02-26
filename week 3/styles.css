@@ -1,16 +1,12 @@
 /* ============================================
-   ESTILOS CEMENTERIO CENTRAL - BOGOTÁ D.C.
-   ESTÉTICA INSTITUCIONAL ALCALDÍA
+   ESTILOS FINALES - CEMENTERIO CENTRAL CRUD
    ============================================ */
 
 @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Montserrat:wght@400;600;700&display=swap');
 
 :root {
-  /* Colores Institucionales */
   --rojo: #E3000B;
   --rojo-oscuro: #b50009;
-  
-  /* Variables de Tema (Modo Claro por defecto) */
   --bg-body: #f0f2f5;
   --bg-card: #ffffff;
   --bg-tabs: #1a1a1a;
@@ -22,7 +18,6 @@
   --logo-filter: none;
 }
 
-/* Variables para Modo Oscuro */
 [data-theme="dark"] {
   --bg-body: #0d0d0d;
   --bg-card: #1a1b1e;
@@ -32,7 +27,7 @@
   --border-color: #30363d;
   --shadow: rgba(0, 0, 0, 0.5);
   --item-bg-hover: #21262d;
-  --logo-filter: brightness(0) invert(1); /* Hace que el logo sea blanco en modo oscuro si es necesario */
+  --logo-filter: brightness(0) invert(1);
 }
 
 * {
@@ -52,7 +47,6 @@ body {
   padding: 2rem 1rem;
 }
 
-/* Contenedor Principal */
 .app-container {
   width: 100%;
   max-width: 1000px;
@@ -63,13 +57,12 @@ body {
   position: relative;
 }
 
-/* Header Institucional */
+/* Header */
 .main-header {
   padding: 1.5rem 2rem;
   border-bottom: 5px solid var(--rojo);
   display: flex;
   align-items: center;
-  justify-content: flex-start;
   background: var(--bg-card);
   gap: 25px;
 }
@@ -80,198 +73,87 @@ body {
   filter: var(--logo-filter);
 }
 
-.logo-area {
-  flex-grow: 1;
-}
+.logo-area { flex-grow: 1; }
+.main-header h1 { font-family: 'Cinzel', serif; font-size: 1.4rem; letter-spacing: 1px; }
+.subtitle { color: var(--rojo); font-weight: 700; font-size: 0.75rem; text-transform: uppercase; }
 
-.main-header h1 {
-  font-family: 'Cinzel', serif;
-  font-size: 1.4rem;
-  letter-spacing: 1px;
-  line-height: 1.2;
-}
+.header-stats { display: flex; gap: 1.2rem; margin-left: auto; }
+.stat-item { text-align: center; padding-left: 1.2rem; border-left: 1px solid var(--border-color); }
+.stat-item span { display: block; font-size: 1.3rem; font-weight: 800; }
+.stat-item.highlight span { color: var(--rojo); }
 
-.subtitle {
-  color: var(--rojo);
-  font-weight: 700;
-  font-size: 0.75rem;
-  text-transform: uppercase;
+/* Pestañas */
+.tabs-nav { background: var(--bg-tabs); display: flex; padding: 0 1rem; }
+.tab-btn {
+  background: none; border: none; color: #888;
+  padding: 1.1rem 1.5rem; cursor: pointer;
+  font-weight: 700; font-size: 0.8rem; text-transform: uppercase;
 }
+.tab-btn.active { color: #fff; border-bottom: 4px solid var(--rojo); background: rgba(255,255,255,0.05); }
 
-.header-stats {
-  display: flex;
-  gap: 1.2rem;
-  margin-left: auto;
-}
+/* Secciones */
+.tab-section { display: none; padding: 2rem; animation: fadeIn 0.4s ease; }
+.tab-section.active { display: block; }
 
-.stat-item {
-  text-align: center;
-  padding-left: 1.2rem;
-  border-left: 1px solid var(--border-color);
-}
-
-.stat-item span {
-  display: block;
-  font-size: 1.3rem;
-  font-weight: 800;
-}
-
-.stat-item.highlight span {
-  color: var(--rojo);
-}
-
-/* Navegación de Pestañas (Igual al ejemplo del profesor) */
-.tabs-nav {
-  background: var(--bg-tabs);
-  display: flex;
-  padding: 0 1rem;
-}
-
-.tab-btn, .tab-link {
-  background: none;
-  border: none;
-  color: #888;
-  padding: 1.1rem 1.5rem;
-  cursor: pointer;
-  font-weight: 700;
-  font-size: 0.8rem;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-}
-
-.tab-btn.active, .tab-link.active {
-  color: #fff;
-  border-bottom: 4px solid var(--rojo);
-  background: rgba(255, 255, 255, 0.05);
-}
-
-/* Secciones de Contenido */
-.tab-section, .tab-pane {
-  display: none;
-  padding: 2rem;
-  animation: fadeIn 0.4s ease;
-}
-
-.tab-section.active, .tab-pane.active {
-  display: block;
-}
-
-/* Barra de Herramientas */
-.toolbar, .actions-bar {
-  display: flex;
-  gap: 1rem;
-  margin-bottom: 2rem;
-}
-
+.toolbar { display: flex; gap: 1rem; margin-bottom: 2rem; }
 input, select {
-  padding: 0.8rem;
-  border: 1px solid var(--border-color);
-  border-radius: 4px;
-  background: var(--bg-card);
-  color: var(--text-main);
-  flex: 1;
-  outline: none;
+  padding: 0.8rem; border: 1px solid var(--border-color);
+  border-radius: 4px; background: var(--bg-card); color: var(--text-main); flex: 1;
 }
 
-input:focus { border-color: var(--rojo); }
-
-/* Tarjetas de Registros (Estilo Libro de Registro) */
-.records-list, .records-container {
-  display: flex;
-  flex-direction: column;
-  gap: 0.8rem;
+/* Tarjetas y Botones de Acción */
+.records-list { display: flex; flex-direction: column; gap: 0.8rem; }
+.item-card {
+  border: 1px solid var(--border-color); padding: 1rem 1.5rem;
+  border-left: 6px solid #444; display: flex;
+  justify-content: space-between; align-items: center;
+  background: var(--bg-card); border-radius: 4px;
 }
+.item-card.occupied { border-left-color: var(--rojo); background: var(--item-bg-hover); }
 
-.item-card, .record-card {
-  border: 1px solid var(--border-color);
-  padding: 1rem 1.5rem;
-  border-left: 6px solid #444;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background: var(--bg-card);
-  border-radius: 4px;
+.actions { display: flex; align-items: center; gap: 10px; }
+
+.btn-icon {
+  background: none; border: 1px solid var(--border-color);
+  padding: 6px 10px; cursor: pointer; border-radius: 4px;
+  font-size: 1.1rem; transition: 0.2s;
 }
-
-.item-card.occupied, .record-card.occupied {
-  border-left-color: var(--rojo);
-  background: var(--item-bg-hover);
-}
-
-.item-card strong { font-size: 1rem; }
-.item-card p { font-size: 0.8rem; color: var(--text-muted); }
+.btn-icon:hover { background: var(--border-color); transform: translateY(-2px); }
 
 /* Botones */
-.btn {
-  padding: 0.8rem 1.5rem;
-  border: none;
-  border-radius: 4px;
-  font-weight: 700;
-  cursor: pointer;
-  text-transform: uppercase;
-  font-size: 0.7rem;
-}
-
-.btn-main, .btn-primary {
-  background: var(--rojo);
-  color: white;
-}
-
+.btn { padding: 0.8rem 1.5rem; border: none; border-radius: 4px; font-weight: 700; cursor: pointer; text-transform: uppercase; font-size: 0.7rem; }
+.btn-main { background: var(--rojo); color: white; }
 .btn-main:hover { background: var(--rojo-oscuro); }
 .btn-secondary { background: var(--border-color); color: var(--text-main); }
 
-/* Switch de Modo Oscuro Flotante */
+/* Switch Modo Oscuro */
 .theme-switch {
-  position: fixed;
-  top: 20px;
-  right: 20px;
-  width: 45px;
-  height: 45px;
-  border-radius: 50%;
-  background: var(--rojo);
-  color: white;
-  border: none;
-  cursor: pointer;
-  font-size: 1.2rem;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.3);
-  z-index: 2000;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  position: fixed; top: 20px; right: 20px; width: 45px; height: 45px;
+  border-radius: 50%; background: var(--rojo); color: white;
+  border: none; cursor: pointer; font-size: 1.2rem;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.3); z-index: 2000;
+  display: flex; align-items: center; justify-content: center;
 }
+
+/* Logs */
+.log-p { font-size: 0.85rem; border-bottom: 1px solid var(--border-color); padding: 8px; color: var(--text-muted); font-family: monospace; }
 
 /* Modales */
 .modal-overlay {
-  display: none;
-  position: fixed;
-  top: 0; left: 0; width: 100%; height: 100%;
-  background: rgba(0, 0, 0, 0.8);
-  z-index: 3000;
-  align-items: center;
-  justify-content: center;
+  display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+  background: rgba(0, 0, 0, 0.8); z-index: 3000;
+  align-items: center; justify-content: center;
 }
-
 .modal-card {
-  background: var(--bg-card);
-  width: 90%;
-  max-width: 400px;
-  padding: 2rem;
-  border-top: 8px solid var(--rojo);
-  border-radius: 4px;
+  background: var(--bg-card); width: 90%; max-width: 400px;
+  padding: 2rem; border-top: 8px solid var(--rojo); border-radius: 4px;
 }
-
 .field { margin-bottom: 1.2rem; }
 .field label { display: block; font-size: 0.7rem; font-weight: 700; margin-bottom: 0.4rem; color: var(--text-muted); text-transform: uppercase; }
 
-/* Animaciones */
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(5px); }
-  to { opacity: 1; transform: translateY(0); }
-}
+@keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
 
-/* Responsive */
 @media (max-width: 768px) {
   .main-header { flex-direction: column; text-align: center; }
   .header-stats { margin-left: 0; margin-top: 15px; }
-  .logo-alcaldia img { margin-bottom: 10px; }
 }

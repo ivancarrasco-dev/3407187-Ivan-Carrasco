@@ -1,78 +1,85 @@
 /**
- * SISTEMA CEMENTERIO CENTRAL - GESTIÓN POO
+ * SISTEMA CEMENTERIO CENTRAL - GESTIÓN COMPLETA (CRUD + POO)
  * Ubicación: starter/script.js
  */
 
-// --- 1. CLASES DE DOMINIO (HERENCIA Y ENCAPSULACIÓN) ---
+// --- 1. MODELO DE DATOS (CLASES POO) ---
 
 class BaseRegistro {
     #id; #nombre; #ubicacion; #estaOcupado;
 
-    constructor(nombre, ubicacion) {
-        if (this.constructor === BaseRegistro) throw new Error("No puedes instanciar una clase abstracta");
-        this.#id = crypto.randomUUID().split('-')[0].toUpperCase();
+    constructor(nombre, ubicacion, id = null) {
+        if (this.constructor === BaseRegistro) throw new Error("No se puede instanciar una clase abstracta.");
+        this.#id = id || crypto.randomUUID().split('-')[0].toUpperCase();
         this.#nombre = nombre;
         this.#ubicacion = ubicacion;
         this.#estaOcupado = false;
     }
 
-    // Getters
     get id() { return this.#id; }
     get nombre() { return this.#nombre; }
     get ubicacion() { return this.#ubicacion; }
     get estaOcupado() { return this.#estaOcupado; }
 
-    // Métodos
+    // Método central para la edición (Actualización)
+    actualizar(nombre, ubicacion) {
+        this.#nombre = nombre;
+        this.#ubicacion = ubicacion;
+    }
+
     toggleEstado() { this.#estaOcupado = !this.#estaOcupado; }
     getType() { return this.constructor.name; }
-    
-    // Método que será sobreescrito (Polimorfismo)
-    obtenerDetalle() { return ""; }
 }
 
 class Mausoleo extends BaseRegistro {
     #capacidad;
-    constructor(n, u, cap) { super(n, u); this.#capacidad = cap; }
+    constructor(n, u, cap, id) { super(n, u, id); this.#capacidad = cap; }
+    get extra() { return this.#capacidad; }
+    actualizar(n, u, cap) { super.actualizar(n, u); this.#capacidad = cap; }
     obtenerDetalle() { return `Capacidad: ${this.#capacidad} féretros`; }
-}
-
-class Cripta extends BaseRegistro {
-    #nivelSeguridad;
-    constructor(n, u, nivel) { super(n, u); this.#nivelSeguridad = nivel; }
-    obtenerDetalle() { return `Seguridad: ${this.#nivelSeguridad}`; }
 }
 
 class Nicho extends BaseRegistro {
     #fila;
-    constructor(n, u, fila) { super(n, u); this.#fila = fila; }
+    constructor(n, u, fila, id) { super(n, u, id); this.#fila = fila; }
+    get extra() { return this.#fila; }
+    actualizar(n, u, fila) { super.actualizar(n, u); this.#fila = fila; }
     obtenerDetalle() { return `Fila/Nivel: ${this.#fila}`; }
 }
 
-// --- 2. MOTOR DEL SISTEMA ---
+class Cripta extends BaseRegistro {
+    #seguridad;
+    constructor(n, u, seg, id) { super(n, u, id); this.#seguridad = seg; }
+    get extra() { return this.#seguridad; }
+    actualizar(n, u, seg) { super.actualizar(n, u); this.#seguridad = seg; }
+    obtenerDetalle() { return `Seguridad: ${this.#seguridad}`; }
+}
+
+// --- 2. CONTROLADOR DEL SISTEMA ---
 
 class SistemaCementerio {
     #inventario = [];
     #historial = [];
 
-    // Bloque estático (Requerimiento POO)
-    static {
-        console.log("Sincronizando con el Archivo Distrital de Bogotá...");
+    agregar(obj) {
+        this.#inventario.push(obj);
+        this.registrarLog(`REGISTRO: ${obj.nombre} (${obj.getType()}) creado.`);
     }
 
-    registrarEntrada(objeto) {
-        this.#inventario.push(objeto);
-        this.logactividad(`NUEVO REGISTRO: ${objeto.nombre} ingresado como ${objeto.getType()}`);
+    eliminar(id) {
+        const item = this.#inventario.find(i => i.id === id);
+        this.#inventario = this.#inventario.filter(i => i.id !== id);
+        this.registrarLog(`ELIMINADO: Registro #${id} (${item.nombre})`);
     }
 
-    logactividad(mensaje) {
-        const fecha = new Date().toLocaleTimeString();
-        this.#historial.unshift(`[${fecha}] ${mensaje}`);
+    registrarLog(msg) {
+        const hora = new Date().toLocaleTimeString();
+        this.#historial.unshift(`[${hora}] ${msg}`);
     }
 
     get inventario() { return this.#inventario; }
     get historial() { return this.#historial; }
-
-    getStats() {
+    get metricas() {
         return {
             total: this.#inventario.length,
             ocupados: this.#inventario.filter(i => i.estaOcupado).length
@@ -80,134 +87,133 @@ class SistemaCementerio {
     }
 }
 
-const cementerio = new SistemaCementerio();
+const db = new SistemaCementerio();
+let idEnEdicion = null; // Control para saber si el modal edita o crea
 
 // --- 3. LÓGICA DE INTERFAZ (UI) ---
 
 const UI = {
-    // Renderizar lista de inventario
-    renderInventario() {
-        const lista = document.getElementById('list-container') || document.getElementById('items-list');
-        const stats = cementerio.getStats();
+    refrescar() {
+        const contenedor = document.getElementById('list-container');
+        const m = db.metricas;
+        
+        // Actualizar contadores
+        document.getElementById('stat-total').textContent = m.total;
+        document.getElementById('stat-occ').textContent = m.ocupados;
 
-        // Actualizar contadores superiores
-        if(document.getElementById('stat-total')) document.getElementById('stat-total').textContent = stats.total;
-        if(document.getElementById('stat-occ')) document.getElementById('stat-occ').textContent = stats.ocupados;
-
-        if(!lista) return;
-
-        lista.innerHTML = cementerio.inventario.map(item => `
+        // Renderizar lista
+        contenedor.innerHTML = db.inventario.map(item => `
             <div class="item-card ${item.estaOcupado ? 'occupied' : ''}">
                 <div class="info">
                     <strong>${item.nombre}</strong> <small>#${item.id}</small>
                     <p>${item.ubicacion} | ${item.obtenerDetalle()}</p>
                 </div>
-                <button class="btn ${item.estaOcupado ? 'btn-secondary' : 'btn-main'}" 
-                        onclick="cambiarEstado('${item.id}')">
-                    ${item.estaOcupado ? 'LIBERAR' : 'OCUPAR'}
-                </button>
+                <div class="actions">
+                    <button class="btn-icon" onclick="abrirEditor('${item.id}')" title="Editar">✏️</button>
+                    <button class="btn-icon" onclick="confirmarBorrado('${item.id}')" title="Eliminar">🗑️</button>
+                    <button class="btn ${item.estaOcupado ? 'btn-secondary' : 'btn-main'}" onclick="alternarEstado('${item.id}')">
+                        ${item.estaOcupado ? 'LIBERAR' : 'OCUPAR'}
+                    </button>
+                </div>
             </div>
         `).join('');
-    },
 
-    // Renderizar historial
-    renderHistorial() {
-        const logDoc = document.getElementById('log-container') || document.getElementById('logs-container');
-        if(!logDoc) return;
-        logDoc.innerHTML = cementerio.historial.map(log => `
-            <p style="font-size:0.85rem; border-bottom: 1px solid var(--border-color); padding: 5px;">${log}</p>
-        `).join('');
+        // Renderizar Historial
+        const logDoc = document.getElementById('log-container');
+        if(logDoc) logDoc.innerHTML = db.historial.map(h => `<p class="log-p">${h}</p>`).join('');
     }
 };
 
-// --- 4. CONTROLADORES DE EVENTOS (WINDOW PARA ALCANCE GLOBAL) ---
+// --- 4. FUNCIONES GLOBALES (EVENTOS) ---
 
-// Cambiar estado de una tumba
-window.cambiarEstado = (id) => {
-    const item = cementerio.inventario.find(i => i.id === id);
-    if(item) {
-        item.toggleEstado();
-        cementerio.logactividad(`ESTADO: ${item.nombre} ahora está ${item.estaOcupado ? 'OCUPADO' : 'DISPONIBLE'}`);
-        UI.renderInventario();
+window.alternarEstado = (id) => {
+    const item = db.inventario.find(i => i.id === id);
+    item.toggleEstado();
+    db.registrarLog(`ESTADO: ${item.nombre} -> ${item.estaOcupado ? 'OCUPADO' : 'LIBRE'}`);
+    UI.refrescar();
+};
+
+window.confirmarBorrado = (id) => {
+    if(confirm("¿Desea eliminar permanentemente este registro del archivo oficial?")) {
+        db.eliminar(id);
+        UI.refrescar();
     }
 };
 
-// Inicialización al cargar el DOM
+window.abrirEditor = (id) => {
+    const item = db.inventario.find(i => i.id === id);
+    idEnEdicion = id;
+    
+    // Llenar formulario con datos actuales
+    document.getElementById('field-type').value = item.getType();
+    document.getElementById('field-name').value = item.nombre;
+    document.getElementById('field-loc').value = item.ubicacion;
+    document.getElementById('field-extra').value = item.extra;
+    
+    document.querySelector('.modal-card h3').textContent = "Editar Registro";
+    document.getElementById('modal-overlay').style.display = 'flex';
+};
+
 document.addEventListener('DOMContentLoaded', () => {
     
-    // --- MANEJO DE PESTAÑAS ---
-    const tabButtons = document.querySelectorAll('.tab-btn, .tab-link');
-    const sections = document.querySelectorAll('.tab-section, .tab-pane');
-
-    tabButtons.forEach(btn => {
-        btn.addEventListener('click', () => {
-            const target = btn.dataset.section || btn.dataset.tab;
-            
-            // Quitar activos
-            tabButtons.forEach(b => b.classList.remove('active'));
-            sections.forEach(s => s.classList.remove('active'));
-
-            // Activar actual
+    // Gestión de Pestañas
+    document.querySelectorAll('.tab-btn').forEach(btn => {
+        btn.onclick = () => {
+            document.querySelectorAll('.tab-btn, .tab-section').forEach(el => el.classList.remove('active'));
             btn.classList.add('active');
-            document.getElementById(target).classList.add('active');
-
-            if(target === 'history' || target === 'history') UI.renderHistorial();
-        });
+            document.getElementById(btn.dataset.section).classList.add('active');
+        };
     });
 
-    // --- MODO OSCURO ---
-    const themeBtn = document.getElementById('theme-toggle');
-    if(themeBtn) {
-        themeBtn.addEventListener('click', () => {
-            const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
-            if(isDark) {
-                document.documentElement.removeAttribute('data-theme');
-                themeBtn.textContent = '🌙';
-                localStorage.setItem('theme', 'light');
-            } else {
-                document.documentElement.setAttribute('data-theme', 'dark');
-                themeBtn.textContent = '☀️';
-                localStorage.setItem('theme', 'dark');
-            }
-        });
+    // Abrir modal para nuevo
+    document.getElementById('open-modal-btn').onclick = () => {
+        idEnEdicion = null;
+        document.getElementById('record-form').reset();
+        document.querySelector('.modal-card h3').textContent = "Nueva Inscripción";
+        document.getElementById('modal-overlay').style.display = 'flex';
+    };
 
-        // Cargar preferencia
-        if(localStorage.getItem('theme') === 'dark') {
-            document.documentElement.setAttribute('data-theme', 'dark');
-            themeBtn.textContent = '☀️';
+    // Cerrar modal
+    document.getElementById('close-modal-btn').onclick = 
+    document.getElementById('cancel-btn').onclick = () => {
+        document.getElementById('modal-overlay').style.display = 'none';
+    };
+
+    // Formulario: Guardar (Nuevo o Editado)
+    document.getElementById('record-form').onsubmit = (e) => {
+        e.preventDefault();
+        const tipo = document.getElementById('field-type').value;
+        const nombre = document.getElementById('field-name').value;
+        const ubicacion = document.getElementById('field-loc').value;
+        const extra = document.getElementById('field-extra').value;
+
+        if (idEnEdicion) {
+            // EDITAR EXISTENTE
+            const item = db.inventario.find(i => i.id === idEnEdicion);
+            item.actualizar(nombre, ubicacion, extra);
+            db.registrarLog(`EDITADO: Registro #${idEnEdicion} actualizado.`);
+        } else {
+            // CREAR NUEVO
+            let nuevo;
+            if(tipo === 'Mausoleum') nuevo = new Mausoleo(nombre, ubicacion, extra);
+            else if(tipo === 'Niche') nuevo = new Nicho(nombre, ubicacion, extra);
+            else nuevo = new Cripta(nombre, ubicacion, extra);
+            db.agregar(nuevo);
         }
-    }
 
-    // --- FORMULARIO Y MODAL ---
-    const modal = document.getElementById('modal-overlay') || document.getElementById('grave-modal');
-    const openBtn = document.getElementById('open-modal-btn');
-    const closeBtn = document.getElementById('close-modal-btn');
-    const form = document.getElementById('record-form') || document.getElementById('grave-form');
+        UI.refrescar();
+        document.getElementById('modal-overlay').style.display = 'none';
+    };
 
-    if(openBtn) openBtn.onclick = () => modal.style.display = 'flex';
-    if(closeBtn) closeBtn.onclick = () => modal.style.display = 'none';
+    // Modo Oscuro
+    const themeBtn = document.getElementById('theme-toggle');
+    themeBtn.onclick = () => {
+        const dark = document.documentElement.getAttribute('data-theme') === 'dark';
+        document.documentElement.setAttribute('data-theme', dark ? 'light' : 'dark');
+        themeBtn.textContent = dark ? '🌙' : '☀️';
+    };
 
-    if(form) {
-        form.onsubmit = (e) => {
-            e.preventDefault();
-            const type = document.getElementById('field-type')?.value || document.getElementById('form-type')?.value;
-            const name = document.getElementById('field-name')?.value || document.getElementById('form-name')?.value;
-            const loc = document.getElementById('field-loc')?.value || document.getElementById('form-loc')?.value;
-            const extra = document.getElementById('field-extra')?.value || document.getElementById('form-extra')?.value;
-
-            let obj;
-            if(type === 'Mausoleum') obj = new Mausoleo(name, loc, extra);
-            else if(type === 'Niche') obj = new Nicho(name, loc, extra);
-            else obj = new Cripta(name, loc, extra);
-
-            cementerio.registrarEntrada(obj);
-            UI.renderInventario();
-            modal.style.display = 'none';
-            form.reset();
-        };
-    }
-
-    // Datos iniciales para que no esté vacío
-    cementerio.registrarEntrada(new Mausoleo("Panteón Central", "Entrada Principal", "20"));
-    UI.renderInventario();
+    // Registro inicial de ejemplo
+    db.agregar(new Mausoleo("Familia Santander", "Eje Central - Cuadro 1", "10"));
+    UI.refrescar();
 });
