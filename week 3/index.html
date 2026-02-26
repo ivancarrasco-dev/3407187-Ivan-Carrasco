@@ -13,10 +13,15 @@
 
   <div class="app-container">
     <header class="main-header">
+      <div class="logo-alcaldia">
+        <img src="pictures/logo.png" alt="Alcaldía de Bogotá">
+      </div>
+      
       <div class="logo-area">
         <h1>MANTENIMIENTO DE REGISTROS</h1>
         <p class="subtitle">Archivo Cementerio Central Bogotá D.C.</p>
       </div>
+
       <div class="header-stats">
         <div class="stat-item">
           <span id="stat-total">0</span>
@@ -49,14 +54,14 @@
 
       <section id="staff" class="tab-section">
         <div class="pane-header">
-          <h2>Personal Administrativo y de Campo</h2>
-          <p>Gestión de funcionarios asignados a pabellones.</p>
+          <h2>Personal Administrativo</h2>
+          <p>Funcionarios encargados de la custodia de folios.</p>
         </div>
         <div id="staff-container" class="records-list">
           <div class="item-card">
             <div>
-              <strong>Admin. Archivo Central</strong>
-              <p>Responsable de Folios y Registros Históricos</p>
+              <strong>Coordinación de Archivo</strong>
+              <p>UAESP - Gestión Cementerios Distritales</p>
             </div>
           </div>
         </div>
@@ -65,7 +70,7 @@
       <section id="history" class="tab-section">
         <div class="pane-header">
           <h2>Libro de Movimientos Recientes</h2>
-          <p>Registro de auditoría del sistema.</p>
+          <p>Auditoría de registros en tiempo real.</p>
         </div>
         <div id="log-container" class="log-entries">
           </div>
@@ -74,7 +79,7 @@
     </main>
 
     <footer style="padding: 1rem; text-align: center; font-size: 0.7rem; color: var(--text-muted); border-top: 1px solid var(--border-color);">
-      UNIDAD ADMINISTRATIVA ESPECIAL DE SERVICIOS PÚBLICOS - UAESP
+      ALCALDÍA MAYOR DE BOGOTÁ - UNIDAD ADMINISTRATIVA ESPECIAL DE SERVICIOS PÚBLICOS
     </footer>
   </div>
 
@@ -99,7 +104,7 @@
           <input type="text" id="field-name" placeholder="Ej: Familia Jiménez" required>
         </div>
         <div class="field">
-          <label>Ubicación en el Cementerio</label>
+          <label>Ubicación</label>
           <input type="text" id="field-loc" placeholder="Ej: Sector Norte, Cuadro 4" required>
         </div>
         <div class="field">
@@ -109,7 +114,7 @@
         
         <div style="display: flex; gap: 10px; margin-top: 2rem;">
           <button type="button" class="btn btn-secondary" id="cancel-btn" style="flex: 1;">Cancelar</button>
-          <button type="submit" class="btn btn-main" style="flex: 1;">Guardar en Libro</button>
+          <button type="submit" class="btn btn-main" style="flex: 1;">Guardar</button>
         </div>
       </form>
     </div>
