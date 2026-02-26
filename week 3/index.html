@@ -3,85 +3,92 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Cementerio Central - Sistema Gestión POO</title>
-  <link rel="icon" type="image/x-icon" href="pictures/estrella.ico?v=2" />
+  <title>Sistema Cementerio Central - Gestión POO</title>
   <link rel="stylesheet" href="styles.css">
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body>
 
   <div class="app-container">
-    <main class="main-card">
-      <header class="header">
-        <div class="header-content">
-          <h1>MANTENIMIENTO DE REGISTROS</h1>
-          <p class="system-title">Archivo Cementerio Central - Bogotá D.C.</p>
-        </div>
-        
-        <div class="stats-header">
-          <div class="stat-bubble"><span id="stat-total">0</span> <small>TOTAL</small></div>
-          <div class="stat-bubble occ"><span id="stat-occ">0</span> <small>OCUPADOS</small></div>
-        </div>
-      </header>
-
-      <nav class="tabs">
-        <button class="tab-btn active" data-tab="inventory">📂 INVENTARIO</button>
-        <button class="tab-btn" data-tab="staff">👥 PERSONAL</button>
-        <button class="tab-btn" data-tab="history">📜 HISTÓRICO</button>
-      </nav>
-
-      <div class="tab-content-container">
-        
-        <section id="inventory" class="tab-pane active">
-          <div class="pane-controls">
-            <input type="text" id="search-input" placeholder="🔍 Buscar sepultura...">
-            <select id="filter-type">
-              <option value="all">Todos los Sectores</option>
-              <option value="Niche">Nichos</option>
-              <option value="Mausoleum">Mausoleos</option>
-              <option value="Plot">Lotes</option>
-            </select>
-            <button id="btn-add-grave" class="btn btn-primary">+ REGISTRAR</button>
-          </div>
-          <div id="grave-list" class="records-grid"></div>
-        </section>
-
-        <section id="staff" class="tab-pane">
-          <div class="pane-header">
-            <h2>Gestión de Cuidadores y Registradores</h2>
-            <button id="btn-add-staff" class="btn btn-secondary btn-small">+ NUEVO MIEMBRO</button>
-          </div>
-          <div id="staff-list" class="staff-grid"></div>
-        </section>
-
-        <section id="history" class="tab-pane">
-          <div class="pane-header"><h2>Registro de Actividad Reciente</h2></div>
-          <div id="history-log" class="history-list">
-            </div>
-        </section>
+    <header class="main-header">
+      <div class="logo-area">
+        <h1>MANTENIMIENTO DE REGISTROS</h1>
+        <p class="subtitle">Archivo Cementerio Central Bogotá D.C.</p>
       </div>
+      <div class="header-stats">
+        <div class="stat-item">
+          <span id="stat-total">0</span>
+          <small>REGISTROS</small>
+        </div>
+        <div class="stat-item highlight">
+          <span id="stat-occ">0</span>
+          <small>OCUPADOS</small>
+        </div>
+      </div>
+    </header>
+
+    <nav class="tabs-nav">
+      <button class="tab-btn active" data-section="inventory">📂 INVENTARIO</button>
+      <button class="tab-btn" data-section="staff">👥 PERSONAL</button>
+      <button class="tab-btn" data-section="history">📜 HISTORIAL</button>
+    </nav>
+
+    <main class="content-area">
+      
+      <section id="inventory" class="tab-section active">
+        <div class="toolbar">
+          <input type="text" id="search-box" placeholder="🔍 Buscar por nombre...">
+          <button class="btn btn-main" id="open-modal-btn">+ NUEVO REGISTRO</button>
+        </div>
+        <div id="list-container" class="records-list">
+          </div>
+      </section>
+
+      <section id="staff" class="tab-section">
+        <div class="pane-header"><h2>Personal Administrativo</h2></div>
+        <div id="staff-container" class="records-list"></div>
+      </section>
+
+      <section id="history" class="tab-section">
+        <div class="pane-header"><h2>Libro de Movimientos</h2></div>
+        <div id="log-container" class="log-entries"></div>
+      </section>
+
     </main>
   </div>
 
-  <div id="modal-grave" class="modal">
-    <div class="modal-content">
-      <div class="modal-header"><h3>Inscripción de Espacio</h3></div>
-      <form id="form-grave" class="modal-form">
-        <select id="grave-type" required>
-          <option value="Niche">Nicho (Muro)</option>
-          <option value="Mausoleum">Mausoleo (Privado)</option>
-          <option value="Plot">Lote (Tierra)</option>
-        </select>
-        <input type="text" id="grave-name" placeholder="Nombre / Referencia" required>
-        <input type="text" id="grave-loc" placeholder="Ubicación (Ej: Sector B)" required>
-        <input type="text" id="grave-extra" placeholder="Dato Adicional (Nivel, Capacidad...)" required>
-        <div class="modal-actions">
-          <button type="button" class="btn" onclick="closeModal('modal-grave')">CANCELAR</button>
-          <button type="submit" class="btn btn-primary">GUARDAR</button>
+  <div id="modal-overlay" class="modal-overlay">
+    <div class="modal-card">
+      <h3>Inscribir Nuevo Espacio</h3>
+      <form id="record-form">
+        <div class="field">
+          <label>Tipo</label>
+          <select id="field-type" required>
+            <option value="Mausoleum">Mausoleo</option>
+            <option value="Niche">Nicho</option>
+            <option value="Plot">Lote de Tierra</option>
+          </select>
+        </div>
+        <div class="field">
+          <label>Titular / Identificador</label>
+          <input type="text" id="field-name" required>
+        </div>
+        <div class="field">
+          <label>Ubicación</label>
+          <input type="text" id="field-loc" required>
+        </div>
+        <div class="field" id="extra-field-area">
+          <label id="extra-label">Capacidad</label>
+          <input type="text" id="field-extra" required>
+        </div>
+        <div class="modal-btns">
+          <button type="button" class="btn" id="close-modal-btn">Cancelar</button>
+          <button type="submit" class="btn btn-main">Guardar</button>
         </div>
       </form>
     </div>
   </div>
 
-  <script src="script.js"></script>
+  <script src="starter/script.js"></script>
 </body>
 </html>
