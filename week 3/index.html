@@ -3,11 +3,13 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Sistema Cementerio Central - Gestión POO</title>
+  <title>Sistema Cementerio Central - Gestión de Registros</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body>
+
+  <button class="theme-switch" id="theme-toggle" title="Cambiar Tema">🌙</button>
 
   <div class="app-container">
     <header class="main-header">
@@ -37,53 +39,77 @@
       
       <section id="inventory" class="tab-section active">
         <div class="toolbar">
-          <input type="text" id="search-box" placeholder="🔍 Buscar por nombre...">
-          <button class="btn btn-main" id="open-modal-btn">+ NUEVO REGISTRO</button>
+          <input type="text" id="search-input" placeholder="🔍 Buscar por nombre o ubicación...">
+          <button class="btn btn-main" id="open-modal-btn">+ NUEVA INSCRIPCIÓN</button>
         </div>
+        
         <div id="list-container" class="records-list">
           </div>
       </section>
 
       <section id="staff" class="tab-section">
-        <div class="pane-header"><h2>Personal Administrativo</h2></div>
-        <div id="staff-container" class="records-list"></div>
+        <div class="pane-header">
+          <h2>Personal Administrativo y de Campo</h2>
+          <p>Gestión de funcionarios asignados a pabellones.</p>
+        </div>
+        <div id="staff-container" class="records-list">
+          <div class="item-card">
+            <div>
+              <strong>Admin. Archivo Central</strong>
+              <p>Responsable de Folios y Registros Históricos</p>
+            </div>
+          </div>
+        </div>
       </section>
 
       <section id="history" class="tab-section">
-        <div class="pane-header"><h2>Libro de Movimientos</h2></div>
-        <div id="log-container" class="log-entries"></div>
+        <div class="pane-header">
+          <h2>Libro de Movimientos Recientes</h2>
+          <p>Registro de auditoría del sistema.</p>
+        </div>
+        <div id="log-container" class="log-entries">
+          </div>
       </section>
 
     </main>
+
+    <footer style="padding: 1rem; text-align: center; font-size: 0.7rem; color: var(--text-muted); border-top: 1px solid var(--border-color);">
+      UNIDAD ADMINISTRATIVA ESPECIAL DE SERVICIOS PÚBLICOS - UAESP
+    </footer>
   </div>
 
   <div id="modal-overlay" class="modal-overlay">
     <div class="modal-card">
-      <h3>Inscribir Nuevo Espacio</h3>
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
+        <h3 style="font-family: 'Cinzel', serif;">Nueva Inscripción</h3>
+        <button id="close-modal-btn" style="background: none; border: none; font-size: 1.5rem; cursor: pointer; color: var(--text-main);">&times;</button>
+      </div>
+      
       <form id="record-form">
         <div class="field">
-          <label>Tipo</label>
+          <label>Tipo de Sepultura</label>
           <select id="field-type" required>
-            <option value="Mausoleum">Mausoleo</option>
-            <option value="Niche">Nicho</option>
-            <option value="Plot">Lote de Tierra</option>
+            <option value="Mausoleum">Mausoleo (Familiar)</option>
+            <option value="Niche">Nicho (Pabellón)</option>
+            <option value="Crypt">Cripta (Seguridad)</option>
           </select>
         </div>
         <div class="field">
-          <label>Titular / Identificador</label>
-          <input type="text" id="field-name" required>
+          <label>Nombre del Titular / Difunto</label>
+          <input type="text" id="field-name" placeholder="Ej: Familia Jiménez" required>
         </div>
         <div class="field">
-          <label>Ubicación</label>
-          <input type="text" id="field-loc" required>
+          <label>Ubicación en el Cementerio</label>
+          <input type="text" id="field-loc" placeholder="Ej: Sector Norte, Cuadro 4" required>
         </div>
-        <div class="field" id="extra-field-area">
-          <label id="extra-label">Capacidad</label>
-          <input type="text" id="field-extra" required>
+        <div class="field">
+          <label id="extra-label">Dato Adicional (Capacidad/Nivel)</label>
+          <input type="text" id="field-extra" placeholder="Ej: 4 personas / Nivel 2" required>
         </div>
-        <div class="modal-btns">
-          <button type="button" class="btn" id="close-modal-btn">Cancelar</button>
-          <button type="submit" class="btn btn-main">Guardar</button>
+        
+        <div style="display: flex; gap: 10px; margin-top: 2rem;">
+          <button type="button" class="btn btn-secondary" id="cancel-btn" style="flex: 1;">Cancelar</button>
+          <button type="submit" class="btn btn-main" style="flex: 1;">Guardar en Libro</button>
         </div>
       </form>
     </div>

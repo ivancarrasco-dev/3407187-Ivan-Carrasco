@@ -1,50 +1,258 @@
+/* ============================================
+   ESTILOS CEMENTERIO CENTRAL - BOGOTÁ D.C.
+   ============================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Montserrat:wght@400;600;700&display=swap');
+
 :root {
+  /* Colores Institucionales */
   --rojo: #E3000B;
-  --negro: #1a1a1a;
-  --blanco: #ffffff;
-  --gris: #f4f4f4;
-  --borde: #ddd;
+  --rojo-oscuro: #b50009;
+  
+  /* Variables de Tema (Modo Claro por defecto) */
+  --bg-body: #f0f2f5;
+  --bg-card: #ffffff;
+  --bg-tabs: #1a1a1a;
+  --text-main: #1a1a1a;
+  --text-muted: #666666;
+  --border-color: #e0e0e0;
+  --shadow: rgba(0, 0, 0, 0.1);
+  --item-bg-hover: #fff9f9;
 }
 
-* { box-sizing: border-box; margin: 0; padding: 0; }
-body { font-family: 'Montserrat', sans-serif; background: #222; padding: 2rem; display: flex; justify-content: center; }
+/* Variables para Modo Oscuro */
+[data-theme="dark"] {
+  --bg-body: #0d0d0d;
+  --bg-card: #1a1b1e;
+  --bg-tabs: #000000;
+  --text-main: #e6edf3;
+  --text-muted: #8b949e;
+  --border-color: #30363d;
+  --shadow: rgba(0, 0, 0, 0.5);
+  --item-bg-hover: #21262d;
+}
 
-.app-container { width: 1000px; background: white; border-radius: 8px; overflow: hidden; box-shadow: 0 20px 50px rgba(0,0,0,0.5); }
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+body {
+  font-family: 'Montserrat', sans-serif;
+  background-color: var(--bg-body);
+  color: var(--text-main);
+  line-height: 1.6;
+  display: flex;
+  justify-content: center;
+  padding: 2rem 1rem;
+}
+
+/* Contenedor Principal */
+.app-container {
+  width: 100%;
+  max-width: 1000px;
+  background: var(--bg-card);
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px var(--shadow);
+  position: relative;
+}
 
 /* Header */
-.main-header { padding: 20px 40px; border-bottom: 5px solid var(--rojo); display: flex; justify-content: space-between; align-items: center; }
-.main-header h1 { font-family: 'Cinzel', serif; font-size: 1.5rem; }
-.subtitle { color: var(--rojo); font-weight: 700; font-size: 0.75rem; text-transform: uppercase; }
-.header-stats { display: flex; gap: 20px; }
-.stat-item { text-align: center; border-left: 1px solid var(--borde); padding-left: 20px; }
-.stat-item span { display: block; font-size: 1.4rem; font-weight: 800; }
-.stat-item.highlight span { color: var(--rojo); }
+.main-header {
+  padding: 2rem;
+  border-bottom: 5px solid var(--rojo);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: var(--bg-card);
+}
 
-/* Tabs */
-.tabs-nav { background: var(--negro); display: flex; }
-.tab-btn { background: none; border: none; color: #888; padding: 15px 30px; cursor: pointer; font-weight: 700; font-size: 0.8rem; }
-.tab-btn.active { color: white; border-bottom: 4px solid var(--rojo); background: #333; }
+.main-header h1 {
+  font-family: 'Cinzel', serif;
+  font-size: 1.6rem;
+  letter-spacing: 1px;
+}
 
-/* Contenido de Pestañas */
-.tab-section { display: none; padding: 30px; animation: fadeIn 0.3s; }
-.tab-section.active { display: block; }
+.subtitle {
+  color: var(--rojo);
+  font-weight: 700;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+}
 
-.toolbar { display: flex; gap: 10px; margin-bottom: 30px; }
-.toolbar input { flex: 1; padding: 10px; border: 1px solid var(--borde); }
+.header-stats {
+  display: flex;
+  gap: 1.5rem;
+}
 
-/* Tarjetas */
-.records-list { display: flex; flex-direction: column; gap: 10px; }
-.item-card { border: 1px solid var(--borde); padding: 20px; border-left: 6px solid #666; display: flex; justify-content: space-between; align-items: center; }
-.item-card.occupied { border-left-color: var(--rojo); background: #fff9f9; }
+.stat-item {
+  text-align: center;
+  padding-left: 1.5rem;
+  border-left: 1px solid var(--border-color);
+}
 
-/* Modal */
-.modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 100; align-items: center; justify-content: center; }
-.modal-card { background: white; width: 400px; padding: 30px; border-top: 8px solid var(--rojo); }
-.field { margin-bottom: 15px; }
-.field label { display: block; font-size: 0.75rem; font-weight: 700; margin-bottom: 5px; }
-.field input, .field select { width: 100%; padding: 10px; border: 1px solid var(--borde); }
+.stat-item span {
+  display: block;
+  font-size: 1.4rem;
+  font-weight: 800;
+}
 
-.btn { padding: 10px 20px; cursor: pointer; border: none; font-weight: 700; font-size: 0.75rem; }
-.btn-main { background: var(--rojo); color: white; }
+.stat-item.highlight span {
+  color: var(--rojo);
+}
 
-@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+/* Navegación de Pestañas */
+.tabs-nav {
+  background: var(--bg-tabs);
+  display: flex;
+  padding: 0 1rem;
+}
+
+.tab-btn, .tab-link {
+  background: none;
+  border: none;
+  color: #888;
+  padding: 1rem 1.5rem;
+  cursor: pointer;
+  font-weight: 700;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+}
+
+.tab-btn.active, .tab-link.active {
+  color: #fff;
+  border-bottom: 4px solid var(--rojo);
+  background: rgba(255, 255, 255, 0.05);
+}
+
+/* Secciones de Contenido */
+.tab-section, .tab-pane {
+  display: none;
+  padding: 2rem;
+  animation: fadeIn 0.4s ease;
+}
+
+.tab-section.active, .tab-pane.active {
+  display: block;
+}
+
+/* Barra de Herramientas */
+.toolbar, .actions-bar {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+input, select {
+  padding: 0.8rem;
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  background: var(--bg-card);
+  color: var(--text-main);
+  flex: 1;
+}
+
+/* Tarjetas de Registros */
+.records-list, .records-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.item-card, .record-card {
+  border: 1px solid var(--border-color);
+  padding: 1.2rem;
+  border-left: 6px solid var(--text-muted);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: var(--bg-card);
+}
+
+.item-card.occupied, .record-card.occupied {
+  border-left-color: var(--rojo);
+  background: var(--item-bg-hover);
+}
+
+.item-card strong {
+  font-size: 1.1rem;
+}
+
+.item-card p {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+/* Botones */
+.btn {
+  padding: 0.8rem 1.5rem;
+  border: none;
+  border-radius: 4px;
+  font-weight: 700;
+  cursor: pointer;
+  text-transform: uppercase;
+  font-size: 0.75rem;
+}
+
+.btn-main, .btn-primary {
+  background: var(--rojo);
+  color: white;
+}
+
+.btn-main:hover {
+  background: var(--rojo-oscuro);
+}
+
+.btn-secondary {
+  background: var(--border-color);
+  color: var(--text-main);
+}
+
+/* Modo Oscuro Toggle */
+.theme-switch, .theme-toggle {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  background: var(--rojo);
+  color: white;
+  border: none;
+  cursor: pointer;
+  font-size: 1.2rem;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+  z-index: 2000;
+}
+
+/* Modales */
+.modal-overlay {
+  display: none;
+  position: fixed;
+  top: 0; left: 0; width: 100%; height: 100%;
+  background: rgba(0, 0, 0, 0.7);
+  z-index: 3000;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal-card, .modal-content {
+  background: var(--bg-card);
+  width: 100%;
+  max-width: 400px;
+  padding: 2rem;
+  border-top: 8px solid var(--rojo);
+  border-radius: 4px;
+}
+
+.field { margin-bottom: 1.2rem; }
+.field label { display: block; font-size: 0.75rem; font-weight: 700; margin-bottom: 0.5rem; color: var(--text-muted); }
+
+/* Animaciones */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
