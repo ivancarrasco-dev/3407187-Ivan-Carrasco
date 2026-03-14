@@ -36,4 +36,4 @@ El objetivo es construir un **script en JavaScript** que muestre en consola una 
 ## ▶️ Ejecución
 1. Abrir la carpeta del proyecto:
    ```bash
-   cd bootcamp/week-02/3-proyecto/starter
+   week02/starter

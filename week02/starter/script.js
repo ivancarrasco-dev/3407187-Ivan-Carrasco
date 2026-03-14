@@ -55,5 +55,5 @@ console.log("Entidad:         Sepultura");
 console.log("Total registros: " + 350);
 
 console.log("\n=========================================");
-console.log("  Ficha generada con JavaScript ES2023");
+console.log("  Ficha creada con JavaScript ES2023");
 console.log("=========================================");

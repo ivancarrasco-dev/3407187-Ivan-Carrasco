@@ -16,4 +16,4 @@ El objetivo es construir un **script en JavaScript** que muestre en consola una 
 ## ▶️ Ejecución
 1. Abrir la carpeta del proyecto:
    ```bash
-   Javascript/week 1/starter
+   week01/starter
